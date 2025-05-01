@@ -1,97 +1,128 @@
 
-import React from "react";
-import Icon from "@/components/ui/Icon";
-import { Button } from "@/components/ui/button";
-import { Slider } from "@/components/ui/slider";
-import ColorPicker from "@/components/ColorPicker";
+import React from 'react';
+import { Button } from '@/components/ui/button';
+import { Slider } from '@/components/ui/slider';
+import Icon from '@/components/ui/Icon';
 
 interface ToolPanelProps {
-  brushColor: string;
-  setBrushColor: (color: string) => void;
-  brushSize: number;
-  setBrushSize: (size: number) => void;
   brushType: string;
   setBrushType: (type: string) => void;
+  brushSize: number;
+  setBrushSize: (size: number) => void;
+  brushColor: string;
+  setBrushColor: (color: string) => void;
   canvasColor: string;
   setCanvasColor: (color: string) => void;
+  onImageUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const ToolPanel: React.FC<ToolPanelProps> = ({
-  brushColor,
-  setBrushColor,
-  brushSize,
-  setBrushSize,
   brushType,
   setBrushType,
+  brushSize,
+  setBrushSize,
+  brushColor,
+  setBrushColor,
   canvasColor,
   setCanvasColor,
+  onImageUpload
 }) => {
-  const brushTypes = [
-    { id: "solid", name: "Твёрдая", icon: "Pen" },
-    { id: "soft", name: "Мягкая", icon: "Pencil" },
-    { id: "smudge", name: "Размазка", icon: "Eraser" },
-  ];
-
   return (
-    <div className="bg-gray-100 p-4 rounded-lg shadow-md flex flex-col gap-4">
-      <div>
-        <h3 className="text-md font-medium mb-2">Тип кисти</h3>
-        <div className="flex gap-2Я планирую создать простой, но функциональный">
-          {brushTypes.map((type) => (
-             редактор рисования с<Button
-              key={type.id}
-              variant={brushType === этими шагами:
-
-1. type.id ? "default" : "outline Создам страницу P"}
-              onClick={()aintApp с холстом для рис => setBrushType(type.id)}
-              className="flexования
-2. Добавлю бо items-center gap-1"
-            >
-              <Icon name={ковую панель с инструментами рtype.icon} size={исования
-3. Реализую баз16} />
-              овые функции: вы{type.name}
-            </Button>бор кисти, ц
-          ))}
+    <div className="w-64 h-full bg-white shadow-md p-4 overflow-y-auto">
+      <h2 className="text-xl font-bold mb-4">Инструменты</h2>
+      
+      <div className="mb-6">
+        <h3 className="text-sm font-medium mb-2">Тип кисти</h3>
+        <div className="grid grid-cols-2 gap-2">
+          <Button 
+            variant={brushType === 'pen' ? 'default' : 'outline'} 
+            onClick={() => setBrushType('pen')}
+            className="flex flex-col items-center"
+          >
+            <Icon name="Pen" size={16} />
+            <span className="text-xs mt-1">Твердая</span>
+          </Button>
+          <Button 
+            variant={brushType === 'brush' ? 'default' : 'outline'} 
+            onClick={() => setBrushType('brush')}
+            className="flex flex-col items-center"
+          >
+            <Icon name="Brush" size={16} />
+            <span className="text-xs mt-1">Мягкая</span>
+          </Button>
+          <Button 
+            variant={brushType === 'smudge' ? 'default' : 'outline'} 
+            onClick={() => setBrushType('smudge')}
+            className="flex flex-col items-center"
+          >
+            <Icon name="Droplet" size={16} />
+            <span className="text-xs mt-1">Размазка</span>
+          </Button>
+          <Button 
+            variant={brushType === 'finger' ? 'default' : 'outline'} 
+            onClick={() => setBrushType('finger')}
+            className="flex flex-col items-center"
+          >
+            <Icon name="PointerIcon" fallback="Hand" size={16} />
+            <span className="text-xs mt-1">Палец</span>
+          </Button>
         </div>
       </div>
-      вета и размера
-4. Доб
-      <div>
-        <h3авлю поддержку заг className="text-md font-medium mb-2">Размер кисти: {brushSize}pxрузки изображений как</h3>
-        <Slider фона
-
-<pp-write
+      
+      <div className="mb-6">
+        <h3 className="text-sm font-medium mb-2">Размер кисти: {brushSize}px</h3>
+        <Slider
           value={[brushSize]}
-           filepath="src/pages/Pmin={1}
-          aintApp.tsx">max={50}
-import { useState, useRef
+          min={1}
+          max={50}
           step={1}
-          onValueChange={(value) => setBrushSize } from "react";
-import {(value[0])} Button } from "@/components/
-          className="w-fullui/button";
-import"
+          onValueChange={(value) => setBrushSize(value[0])}
+          className="mb-2"
         />
-      </div> { Slider } from "@/components
-      
-      <div>
-        <h/ui/slider";
-import {3 className="text-md font-medium Tabs, TabsContent, Tab mb-2">Цвет кисsList, TabsTrigger } from "@/ти</h3>
-        <ColorPcomponents/ui/tabs";
-import { Inputicker value={brushColor} onChange } from "@/components/ui/input";={setBrushColor} />
       </div>
       
-      <div>
-import DrawingCanvas from "@/
-        <h3 className="text-mcomponents/DrawingCanvas";
-import Icond font-medium mb-2">Цв from "@/components/ui/Iconет холста</h3>
-        ";
-
-const PaintApp = () => {
-  <ColorPicker value={canvasColor} onChangeconst [brushColor, setBrushColor={setCanvasColor} />
+      <div className="mb-6">
+        <h3 className="text-sm font-medium mb-2">Цвет кисти</h3>
+        <input
+          type="color"
+          value={brushColor}
+          onChange={(e) => setBrushColor(e.target.value)}
+          className="w-full h-10 cursor-pointer rounded"
+        />
       </div>
+      
+      <div className="mb-6">
+        <h3 className="text-sm font-medium mb-2">Цвет холста</h3>
+        <input
+          type="color"
+          value={canvasColor}
+          onChange={(e) => setCanvasColor(e.target.value)}
+          className="w-full h-10 cursor-pointer rounded"
+        />
+      </div>
+      
+      <div className="mb-6">
+        <h3 className="text-sm font-medium mb-2">Загрузить фото</h3>
+        <div className="flex items-center">
+          <label className="flex-1">
+            <div className="btn btn-outline w-full text-center py-2 px-4 rounded cursor-pointer border border-gray-300 hover:bg-gray-50">
+              Выбрать файл
+            </div>
+            <input 
+              type="file" 
+              accept="image/*" 
+              onChange={onImageUpload} 
+              className="hidden" 
+            />
+          </label>
+        </div>
+      </div>
+      
+      <Button className="w-full" variant="default">
+        Сохранить рисунок
+      </Button>
     </div>
-  );] = useState("#000000");
-  const
+  );
 };
 
 export default ToolPanel;
