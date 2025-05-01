@@ -1,12 +1,14 @@
 
 import React, { useRef, useState, useEffect } from "react";
 
+
 interface DrawingCanvasProps {
   brushColor: string;
   brushSize: number;
   brushType: string;
   canvasColor: string;
 }
+
 
 const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
   brushColor,
